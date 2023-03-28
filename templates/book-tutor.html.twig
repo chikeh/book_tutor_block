@@ -1,0 +1,11 @@
+{#
+/**
+ * @file
+ * Default theme implementation for book_tutor block.
+ *
+#}
+{% if verified is not empty and verified == '1' %}
+  <p>Tutor is verified</p>
+{% else %}
+  <p>Tutor is not verified</p>
+{% endif %}

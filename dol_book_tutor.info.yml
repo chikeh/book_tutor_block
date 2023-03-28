@@ -1,0 +1,5 @@
+name: DoLessons Book Tutor
+description: Block to start tutor booking.
+package: DoLessons
+type: module
+core_version_requirement: ^9.2 || ^10

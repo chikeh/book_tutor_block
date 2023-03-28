@@ -1,0 +1,10 @@
+/**
+ * Implements hook_theme().
+ */
+function book_tutor_theme() {
+  return [
+    'book_tutor' => [
+      'variables' => 'id-verified',
+    ],
+  ];
+}
