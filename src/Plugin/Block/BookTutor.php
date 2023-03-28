@@ -4,6 +4,8 @@ namespace Drupal\dol_book_tutor\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 
+use Drupal\user\Entity\User;
+
 /**
  * Provides a 'Book Tutor' Block.
  *
@@ -20,20 +22,16 @@ class BookTutor extends BlockBase {
    */
 
   /**
-   * Implements template_preprocess_user for user.html.twig.
+   * Fetch value of field_is_verified bolean.
  */
- function dol_book_tutor_preprocess_user(&$variables) {
-   // Load the current user.
-   $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
 
-   // Get field data from that user.
-   $variables['id-verified'] = $user->get('field_id_verified')->value;
-   }
-
-  public function build() {
-    return [
-      '#theme' => 'book_tutor',
-    ];
-  }
+public function build() {
+  $account = User::load(\Drupal::currentUser()->id());
+  $is_verified = !empty($account->get('field_is_verified')[0]->value);
+  return [
+    '#theme' => 'book_tutor',
+    '#verified' => $is_verified,
+  ];
+}
 
 }
