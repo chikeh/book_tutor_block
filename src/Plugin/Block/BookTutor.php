@@ -27,7 +27,7 @@ class BookTutor extends BlockBase {
 
 public function build() {
   $account = User::load(\Drupal::currentUser()->id());
-  $is_verified = !empty($account->get('field_is_verified')[0]->value);
+  $is_verified = !empty($account->get('field_id_verified')[0]->value);
   return [
     '#theme' => 'book_tutor',
     '#verified' => $is_verified,
