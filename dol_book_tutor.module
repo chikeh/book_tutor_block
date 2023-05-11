@@ -8,6 +8,8 @@ function dol_book_tutor_theme() {
     'book_tutor' => [
       'variables' => [
         'verified' => NULL,
+        'firstname' => NULL,
+        'current_role' => NULL,
       ],
     ],
   ];

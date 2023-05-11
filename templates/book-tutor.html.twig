@@ -4,8 +4,32 @@
  * Default theme implementation for book_tutor block.
  *
 #}
-{% if verified == '1' %}
-  <p>Tutor is verified</p>
+{% if current_role == 'tutor' %}
+<h2>Book {{ firstname }} verified is {{ verified }}</h2>
+<div class="text-center">
+    <table>
+        <tbody>
+          {% if verified == '1' %}
+            <tr>
+                <td class="p-2 v-tutor">
+                    This tutor's ID is verified.
+                </td>
+            </tr>
+           {% endif %}
+            <tr>
+                <td class="p-2 t-discount">
+                    Get discounts when you book 5 or more students.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        <!--<a class="btn btn-primary" href="#book-tutor" role="button">Start booking process >>></a>-->
+        <div class="d-grid gap-2">
+          <a href="#book-tutor" class="btn btn-primary" type="button">Start booking process >>></a>
+        </div>
+    </p>
+</div>
 {% else %}
-  <p>Tutor is not verified</p>
+No tutor here.
 {% endif %}
