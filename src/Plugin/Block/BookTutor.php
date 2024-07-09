@@ -21,9 +21,6 @@ class BookTutor extends BlockBase {
    * {@inheritdoc}
    */
 
-  /**
-   * Fetch value of field_is_verified bolean.
- */
 
 public function build() {
 
@@ -34,6 +31,7 @@ public function build() {
 if ($user = \Drupal::routeMatch()->getParameter('user')) {
   $uid = $user->id();
   $account = User::load($uid);
+  // Fetch value of field_id_verified bolean.
   $is_verified = !empty($account->field_id_verified->value);
   $first_name = $account->field_first_name->value ?? '';
   // Set the user role variable
