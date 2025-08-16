@@ -3,7 +3,6 @@
 namespace Drupal\dol_book_tutor\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-
 use Drupal\user\Entity\User;
 
 /**
@@ -20,33 +19,39 @@ class BookTutor extends BlockBase {
   /**
    * {@inheritdoc}
    */
+  public function build() {
+    // Initialize variables with default values
+    $is_verified = FALSE;
+    $first_name = '';
+    $current_role = '';
 
+    /**
+     * Load the current user from route context.
+     */
+    if ($user = \Drupal::routeMatch()->getParameter('user')) {
+      $uid = $user->id();
+      $account = User::load($uid);
+      
+      // Only proceed if we have a valid account
+      if ($account) {
+        // Fetch value of field_id_verified boolean.
+        $is_verified = !empty($account->field_id_verified->value);
+        $first_name = $account->field_first_name->value ?? '';
+        
+        // Set the user role variable
+        $roles = $user->getRoles();
+        if (in_array('tutor', $roles)) {
+          $current_role = 'tutor';
+        }
+      }
+    }
 
-public function build() {
-
-  /**
-   * Load the current user from route context instead.
- */
-
-if ($user = \Drupal::routeMatch()->getParameter('user')) {
-  $uid = $user->id();
-  $account = User::load($uid);
-  // Fetch value of field_id_verified bolean.
-  $is_verified = !empty($account->field_id_verified->value);
-  $first_name = $account->field_first_name->value ?? '';
-  // Set the user role variable
-  $roles = $user->getRoles();
-  if(in_array('tutor', $roles)) {
-    $current_role = 'tutor';
+    return [
+      '#theme' => 'book_tutor',
+      '#verified' => $is_verified,
+      '#firstname' => $first_name,  
+      '#currentrole' => $current_role,
+      '#cache' => array('max-age' => 0),
+    ];
   }
-}
-
-return [
-  '#theme' => 'book_tutor',
-  '#verified' => $is_verified,
-  '#firstname' => $first_name,  
-  '#currentrole' => $current_role,
-  '#cache' => array('max-age' => 0),
-];
-}
 }
